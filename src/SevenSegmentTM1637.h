@@ -33,7 +33,7 @@
 
 // Default values //////////////////////////////////////////////////////////////
 #define TM1637_DEFAULT_PRINT_DELAY    300 // 300 ms delay between characters
-#define TM1637_DEFAULT_BLINK_DELAY    50      // ms
+#define TM1637_DEFAULT_BLINK_DELAY    500      // ms
 #define TM1637_DEFAULT_BLINK_REPEAT   10
 #define TM1637_DEFAULT_CURSOR_POS     0       // 0-MAX-1 (e.g 3)
 #define TM1637_DEFAULT_COLON_ON       false   //
@@ -277,6 +277,23 @@ public:
   /* Static version of low level function
   * If using more than one display, this saves some space since these methods will be shared among all instances/objects of the class
   */
+
+
+void    printTime(uint8_t hour, uint8_t min, bool blink = false);
+/* Prints given time to the display
+@param [in] t           time given as an int, e.g. 1643 prints 16:43
+*/
+void    printTime(uint16_t t, bool blink);
+/* Print two one or two digit numbers to the display
+* Prints a number to the left and right of the display
+*
+@param [in] leftCounter   the number on the left side of the display
+@param [in] rightcounter  the numnber on the right side of the display
+@param [in] zeroPadding   optional: pad counters with zero
+*/
+void    printDualCounter(int8_t leftCounter, int8_t rightCounter, bool zeroPadding = false);
+
+
   static bool    command(uint8_t pinClk, uint8_t pinDIO, uint8_t cmd);
   static bool    command(uint8_t pinClk, uint8_t pinDIO, const uint8_t* command, uint8_t length);
   static void    comStart(uint8_t pinClk, uint8_t pinDIO);
@@ -450,3 +467,4 @@ protected:
 #endif
 
 #endif
+
